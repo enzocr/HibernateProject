@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro de Prestamos</title>
+    </h:head>
+    <h:body>
+        <h:form id="form" >
+            <p:commandButton style="float: right" action="#{logInBean.goToIndex()}"
+                             ajax="false" immediate="true"
+                             value="#{eti['button.goBack']}"/>
+            <p:commandButton style="float: right" action="#{libroBean.changeLanguage()}"
+                             ajax="false" immediate="true"
+                             value="#{eti['button.changeLanguage']}"/>
+
+
+            <p:outputLabel  value="#{eti['title.registers']}"/>
+
+            <table>
+
+
+                <tr>
+                    <td>
+                        <p:outputLabel value="#{eti['header.student']}"/>
+                    </td>
+                    <td>
+                        <p:selectOneMenu id="cbEstudiante" value="#{prestamoBean.prestamo.id.estudiante}" converter="estudianteConverter">
+                            <f:selectItems value="#{estudianteBean.fillStudents()}"/>
+                        </p:selectOneMenu>
+                    </td>
+                </tr>  
+            </table>
+
+
+
+            <p:commandButton id="btnReporte" value="#{eti['boton.reporte']}"
+                             action="#{prestamoBean.generateReportBooksByStudent()}" 
+                             ajax="false"/>
+
+
+
+            <p:messages globalOnly="true"/>
+
+
+
+        </h:form>
+
+    </h:body>
+</html>
+

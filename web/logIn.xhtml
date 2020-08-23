@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>
+            Log In
+        </title>
+    </h:head>
+    <h:body>
+        <h:form id="form" >
+
+            <p:commandButton style="float: right" action="#{estudianteBean.changeLanguage()}"
+                             ajax="false" immediate="true"
+                             value="#{eti['button.changeLanguage']}"/>
+            <br/>
+            <p:outputLabel  value="#{eti['title.logIn']}"/>
+            <table>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.username']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtUsername" 
+                                     value="#{logInBean.user.usuario}"/>
+                        <p:message for="txtUsername"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.password']}"/>
+                    </td>
+                    <td>
+                        <p:password id="txtPass" value="#{logInBean.user.contrasena}"/>
+                        <p:message for="txtPass"/>
+                    </td>
+                </tr>
+            </table>
+
+            <p:commandButton id="btnInsert" value="#{eti['button.logIn']}"
+                             action="#{logInBean.userExists()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnClean" value="#{eti['button.clean']}"
+                             action="#{logInBean.clean()}" 
+                             ajax="false"/>
+
+            <p:messages globalOnly="true"/>
+
+
+
+        </h:form>
+
+    </h:body>
+</html>
+

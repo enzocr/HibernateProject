@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+">
+
+    <bean id="estudianteDao" class="cr.ac.una.icai.sipreli.dao.EstudianteDao"/>
+    <bean id="libroDao" class="cr.ac.una.icai.sipreli.dao.LibroDao"/>
+    <bean id="prestamoDao" class="cr.ac.una.icai.sipreli.dao.PrestamoDao"/>
+    <bean id="logInDao" class="cr.ac.una.icai.sipreli.dao.LogInDao"/>
+
+    
+    <bean id="estudianteBo" class="cr.ac.una.icai.sipreli.bo.EstudianteBo">
+        <property name="estudianteDao" ref="estudianteDao"/>
+    </bean>
+    <bean id="libroBo" class="cr.ac.una.icai.sipreli.bo.LibroBo">
+        <property name="libroDao" ref="libroDao"/>
+    </bean>
+    <bean id="prestamoBo" class="cr.ac.una.icai.sipreli.bo.PrestamoBo">
+        <property name="prestamoDao" ref="prestamoDao"/>
+    </bean>
+     <bean id="logInBo" class="cr.ac.una.icai.sipreli.bo.LogInBo">
+        <property name="logInDao" ref="logInDao"/>
+    </bean>
+    
+    
+</beans>

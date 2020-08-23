@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <locale-config>
+            <default-locale>es</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>cr.ac.una.icai.sipreli.propiedades.etiquetas</base-name>
+            <var>eti</var>
+        </resource-bundle>
+        <message-bundle>
+            cr.ac.una.icai.sipreli.propiedades.etiquetas</message-bundle>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+    
+    <managed-bean>
+        <managed-bean-name>estudianteBean</managed-bean-name>
+        <managed-bean-class>cr.ac.una.icai.sipreli.beans.EstudianteBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>estudianteBo</property-name>
+            <property-class>cr.ac.una.icai.sipreli.bo.EstudianteBo</property-class>
+            <value>#{estudianteBo}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>libroBean</managed-bean-name>
+        <managed-bean-class>cr.ac.una.icai.sipreli.beans.LibroBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>libroBo</property-name>
+            <property-class>cr.ac.una.icai.sipreli.bo.LibroBo</property-class>
+            <value>#{libroBo}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>prestamoBean</managed-bean-name>
+        <managed-bean-class>cr.ac.una.icai.sipreli.beans.PrestamoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>prestamoBo</property-name>
+            <property-class>cr.ac.una.icai.sipreli.bo.PrestamoBo</property-class>
+            <value>#{prestamoBo}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>logInBean</managed-bean-name>
+        <managed-bean-class>cr.ac.una.icai.sipreli.beans.LogInBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+         <managed-property>
+            <property-name>logInBo</property-name>
+            <property-class>cr.ac.una.icai.sipreli.bo.LogInBo</property-class>
+            <value>#{logInBo}</value>
+        </managed-property>
+    </managed-bean>
+</faces-config>

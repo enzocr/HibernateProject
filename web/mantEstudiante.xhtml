@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>
+            Mantenimiento de Estudiantes
+        </title>
+
+
+    </h:head>
+    <h:body>
+        <h:form id="form" >
+
+            <p:commandButton style="float: right" action="#{logInBean.goToIndex()}"
+                             ajax="false" immediate="true"
+                             value="#{eti['button.goBack']}"/>
+            <p:commandButton style="float: right" action="#{estudianteBean.changeLanguage()}"
+                             ajax="false" immediate="true"
+                             value="#{eti['button.changeLanguage']}"/>
+            <br/>
+            <p:outputLabel  value="#{eti['title.mantStudents']}"/>
+            <table>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.carnet']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtCarnet" 
+                                     readonly="#{estudianteBean.modificando == true}"
+                                     value="#{estudianteBean.estudiante.carnet}"/>
+                        <p:message for="txtCarnet"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.name']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtNombre" value="#{estudianteBean.estudiante.nombre}"/>
+                        <p:message for="txtNombre"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.phone']}"/>
+                    </td>
+                    <td>
+                        <p:inputText  id="txtTelefono" value="#{estudianteBean.estudiante.telefono}"/>
+                        <p:message for="txtTelefono"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.address']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtDireccion" value="#{estudianteBean.estudiante.direccion}"/>
+                        <p:message for="txtDireccion"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.email']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtEmail" value="#{estudianteBean.estudiante.email}"/>
+                        <p:message for="txtEmail"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel value="#{eti['header.school']}"/>
+                    </td>
+                    <td>
+                        <p:selectOneMenu id="cbEscuela" value="#{estudianteBean.estudiante.escuela}">
+                            <f:selectItems value="#{estudianteBean.fillSchools()}"/>
+                        </p:selectOneMenu>
+                        <p:message for="cbEscuela"/>
+                    </td>
+                </tr>
+
+
+            </table>
+
+            <p:commandButton id="btnInsert" value="#{eti['button.insert']}"
+                             rendered="#{estudianteBean.modificando == false}"
+                             action="#{estudianteBean.insert()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnUpdate" value="#{eti['button.update']}"
+                             rendered="#{estudianteBean.modificando == true}"
+                             action="#{estudianteBean.update()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnGetByCarnet" value="#{eti['button.getByCarnet']}"
+                             action="#{estudianteBean.getByCarnet()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnGetByName" value="#{eti['button.getByName']}"
+                             action="#{estudianteBean.getByName()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnClean" value="#{eti['button.clean']}"
+                             action="#{estudianteBean.clean()}" 
+                             ajax="false"/>
+
+            <p:messages globalOnly="true"/>
+
+            <p:dataTable id="table" value="#{estudianteBean.lista}" style="width: 70%;"
+                         var="obj" paginator="true" rows="8">
+                <p:column headerText="#{eti['header.carnet']}">
+                    <p:outputLabel value="#{obj.carnet}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.name']}">
+                    <p:outputLabel value="#{obj.nombre}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.phone']}">
+                    <p:outputLabel value="#{obj.telefono}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.address']}">
+                    <p:outputLabel value="#{obj.direccion}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.email']}">
+                    <p:outputLabel value="#{obj.email}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.school']}">
+                    <h:panelGroup rendered="#{obj.escuela == 1}">
+                        <p:outputLabel value="Informática"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{obj.escuela == 2}">
+                        <p:outputLabel value="Biología"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{obj.escuela == 3}">
+                        <p:outputLabel value="Matemática"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{obj.escuela == 4}">
+                        <p:outputLabel value="Música"/>
+                    </h:panelGroup>
+                </p:column>
+
+                <p:column>
+                    <h:commandLink action="#{estudianteBean.select(obj)}">
+                        <h:graphicImage  value="../img/modificar.png"/>
+                    </h:commandLink>
+                    <h:commandLink onclick="return confirm('Desea eliminar al estudiante #{obj.nombre}');"
+                                   action="#{estudianteBean.delete(obj)}">
+                        <h:graphicImage  value="../img/eliminar.gif"/>
+                    </h:commandLink>
+                </p:column>
+            </p:dataTable>
+
+
+        </h:form>
+
+    </h:body>
+</html>
+

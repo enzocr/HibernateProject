@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>
+            Mantenimiento de Libros
+        </title>
+
+
+    </h:head>
+    <h:body>
+        <h:form id="form" >
+
+            <p:commandButton style="float: right" action="#{logInBean.goToIndex()}"
+                             ajax="false" immediate="true"
+                             value="#{eti['button.goBack']}"/>
+            <p:commandButton style="float: right" action="#{estudianteBean.changeLanguage()}"
+                             ajax="false" immediate="true"
+                             value="#{eti['button.changeLanguage']}"/>
+            <br/>
+            <p:outputLabel  value="#{eti['title.mantBooks']}"/>
+            <table>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.isbn']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtIsbn" 
+                                     readonly="#{libroBean.modificando == true}"
+                                     value="#{libroBean.libro.isbn}"/>
+                        <p:message for="txtIsbn"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.name']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtNombre" value="#{libroBean.libro.nombre}"/>
+                        <p:message for="txtNombre"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.author']}"/>
+                    </td>
+                    <td>
+                        <p:inputText  id="txtAutor" value="#{libroBean.libro.autor}"/>
+                        <p:message for="txtAutor"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.years']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtPublicacion" value="#{libroBean.libro.anoPublicacion}"/>
+                        <p:message for="txtPublicacion"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel  value="#{eti['header.editorial']}"/>
+                    </td>
+                    <td>
+                        <p:inputText id="txtEditorial" value="#{libroBean.libro.editorial}"/>
+                        <p:message for="txtEditorial"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:outputLabel value="#{eti['header.genre']}"/>
+                    </td>
+                    <td>
+                        <p:selectOneMenu id="cbGenero" value="#{libroBean.libro.genero}">
+                            <f:selectItems value="#{libroBean.fillGenres()}"/>
+                        </p:selectOneMenu>
+                        <p:message for="cbGenero"/>
+                    </td>
+                </tr>
+
+
+            </table>
+
+            <p:commandButton id="btnInsert" value="#{eti['button.insert']}"
+                             rendered="#{libroBean.modificando == false}"
+                             action="#{libroBean.insert()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnUpdate" value="#{eti['button.update']}"
+                             rendered="#{libroBean.modificando == true}"
+                             action="#{libroBean.update()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnGetByIsbn" value="#{eti['button.getByIsbn']}"
+                             action="#{libroBean.getByIsbn()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnGetByName" value="#{eti['button.getByName']}"
+                             action="#{libroBean.getByName()}" 
+                             ajax="false"/>
+
+            <p:commandButton id="btnClean" value="#{eti['button.clean']}"
+                             action="#{libroBean.clean()}" 
+                             ajax="false"/>
+
+            <p:messages globalOnly="true"/>
+
+            <p:dataTable id="table" value="#{libroBean.lista}" style="width: 70%;"
+                         var="obj" paginator="true" rows="8">
+                <p:column headerText="#{eti['header.carnet']}">
+                    <p:outputLabel value="#{obj.isbn}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.name']}">
+                    <p:outputLabel value="#{obj.nombre}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.author']}">
+                    <p:outputLabel value="#{obj.autor}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.years']}">
+                    <p:outputLabel value="#{obj.anoPublicacion}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.editorial']}">
+                    <p:outputLabel value="#{obj.editorial}"/>
+                </p:column>
+                <p:column headerText="#{eti['header.school']}">
+                    <h:panelGroup rendered="#{obj.genero == 1}">
+                        <p:outputLabel value="Novela"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{obj.genero == 2}">
+                        <p:outputLabel value="Comedia"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{obj.genero == 3}">
+                        <p:outputLabel value="Poesía"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{obj.genero == 4}">
+                        <p:outputLabel value="Educativo"/>
+                    </h:panelGroup>
+                </p:column>
+
+                <p:column>
+                    <h:commandLink action="#{libroBean.select(obj)}">
+                        <h:graphicImage  value="../img/modificar.png"/>
+                    </h:commandLink>
+                    <h:commandLink onclick="return confirm('Desea eliminar al libro #{obj.nombre}');"
+                                   action="#{libroBean.delete(obj)}">
+                        <h:graphicImage  value="../img/eliminar.gif"/>
+                    </h:commandLink>
+                </p:column>
+            </p:dataTable>
+
+
+        </h:form>
+
+    </h:body>
+</html>
+

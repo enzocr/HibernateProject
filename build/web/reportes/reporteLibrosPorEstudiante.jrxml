@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="000f27e0-3631-4f0d-b34e-9b64d768b665">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="carnet" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT lb.isbn, lb.nombre, lb.autor, lb.editorial
+FROM Libro as lb
+	Inner Join prestamo as pre ON lb.isbn = pre.isbn
+	Inner Join estudiante as est ON pre.carnet = est.carnet
+WHERE est.carnet = $P{carnet}]]>
+	</queryString>
+	<field name="isbn" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="autor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="editorial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="29" width="392" height="20" uuid="72c972cb-6ce7-483b-b228-9005a24577e8"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE LIBROS PRESTADOS AL ESTUDIANTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="392" y="29" width="100" height="20" uuid="03371b03-f45a-450d-972e-43a67c458815"/>
+				<textFieldExpression><![CDATA[$P{carnet}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="455" y="2" width="100" height="20" uuid="e3d50092-1452-4ea5-8a3a-ffeafc5999e0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Editorial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="37953977-6fd3-475d-b063-e24fc3f66376"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[isbn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="2" width="100" height="20" uuid="f9230511-a593-4a3d-aff9-736b3304a881"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="0" width="100" height="20" uuid="32622d8f-78d1-4cfe-8039-d90a90c94d32"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Autor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="19" width="100" height="20" uuid="101c4c38-c3c0-4a3e-b8af-0ff9025298d7"/>
+				<textFieldExpression><![CDATA[$F{editorial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="19" width="100" height="20" uuid="f14c77dc-62aa-4d66-8a94-b0e06a88845c"/>
+				<textFieldExpression><![CDATA[$F{isbn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="19" width="100" height="20" uuid="318b06b2-0c7b-409b-b106-a45a88538b6b"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="19" width="100" height="20" uuid="bf7484e7-623e-4964-aa60-1a49445ed267"/>
+				<textFieldExpression><![CDATA[$F{autor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

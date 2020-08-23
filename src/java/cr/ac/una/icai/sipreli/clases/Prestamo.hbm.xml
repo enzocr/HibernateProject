@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2020 6:38:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="cr.ac.una.icai.sipreli.clases.Prestamo" table="prestamo" catalog="sipreli" optimistic-lock="version">
+        <composite-id name="id" class="cr.ac.una.icai.sipreli.clases.PrestamoId">
+            <key-many-to-one name="libro" class="cr.ac.una.icai.sipreli.clases.Libro" lazy="false">
+                <column name="isbn" not-null="true" />
+            </key-many-to-one>
+            <key-many-to-one name="estudiante" class="cr.ac.una.icai.sipreli.clases.Estudiante" lazy="false">
+                <column name="carnet" not-null="true" />
+            </key-many-to-one >
+        </composite-id>
+
+        <property name="fechaPrestamo" type="java.util.Date">
+            <column name="fechaPrestamo" length="26" />
+        </property>
+        <property name="fechaDevolucion" type="java.util.Date">
+            <column name="fechaDevolucion" length="26" />
+        </property>
+    </class>
+</hibernate-mapping>
